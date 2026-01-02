@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+
+langchain
+langchain-community
+langchain-groq
+
+chromadb
+sentence-transformers
+
+pypdf
+python-docx
+unstructured
+beautifulsoup4
+requests
