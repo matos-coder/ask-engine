@@ -1,6 +1,10 @@
 # app/ingestion/ingest.py
 
 from app.ingestion.loaders import *
+from app.ingestion.loaders import load_docx
+from app.ingestion.loaders.pdf_loader import load_pdf
+from app.ingestion.loaders.text_loader import load_text
+from app.ingestion.loaders.url_loader import load_url
 from app.ingestion.splitter import split_documents
 from app.vectorstore.chroma import get_vectorstore
 

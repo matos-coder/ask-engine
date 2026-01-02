@@ -1,14 +1,10 @@
 # app/main.py
 
 from fastapi import FastAPI
-from pydantic import BaseModel
-from app.rag.chat import answer_question
+from app.routes.chat import router as chat_router
+from app.routes.ingest import router as ingest_router
 
-app = FastAPI()
+app = FastAPI(title="Ask Engine")
 
-class ChatRequest(BaseModel):
-    question: str
-
-@app.post("/chat")
-def chat(req: ChatRequest):
-    return {"answer": answer_question(req.question)}
+app.include_router(chat_router, prefix="/chat")
+app.include_router(ingest_router, prefix="/ingest")
