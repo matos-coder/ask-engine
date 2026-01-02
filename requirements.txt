@@ -13,3 +13,6 @@ python-docx
 unstructured
 beautifulsoup4
 requests
+
+langchain-text-splitters
+
