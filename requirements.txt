@@ -20,4 +20,9 @@ langchain-huggingface
 langchain-chroma
 
 python-multipart
+python-dotenv
+psycopg2-binary
 
+pydantic_settings
+alembic
+SQLAlchemy
