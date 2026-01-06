@@ -11,7 +11,7 @@ class Client(Base):
     name = Column(String, nullable=False)
 
     enable_agent_handoff = Column(Boolean, default=False)
-    handoff_message = Column(String, default="Would you like to talk to our agent?")
+    #handoff_message = Column(String, default="Would you like to talk to our agent?")
 
     memory_enabled = Column(Boolean, default=True)
     system_prompt = Column(Text, default="You are a helpful assistant.")

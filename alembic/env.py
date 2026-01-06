@@ -8,6 +8,8 @@ from sqlalchemy import pool
 
 from alembic import context
 from app.schemas.client import Client
+from app.schemas.conversation import Conversation
+from app.schemas.message import Message
 
 
 # this is the Alembic Config object, which provides
