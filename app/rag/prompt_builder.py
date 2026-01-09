@@ -4,6 +4,8 @@ def build_prompt(
     context: str,
     question: str
 ) -> str:
+    if system_prompt is None:
+        system_prompt = "You are a helpful assistant."
     prompt = system_prompt + "\n\n"
 
     if conversation_summary:

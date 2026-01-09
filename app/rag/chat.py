@@ -1,4 +1,5 @@
 from fastapi import HTTPException
+from rich import _console
 from app.rag.prompt_builder import build_prompt
 from app.rag.retriever import retrieve_context
 from app.repositories.client_repo import get_client, update_conversation_summary
@@ -9,39 +10,14 @@ from app.core.client_settings import get_client_settings
 from db.session import get_db
 
 
-# def answer_question(question: str, client_id: str):
-#     settings = get_client_settings(client_id)
-#     db = get_vectorstore(client_id)
-
-#     docs = db.similarity_search(question, k=3)
-
-#     if not docs:
-#         return {
-#             "answer": no_answer_response(settings),
-#             "handoff": settings.enable_agent_handoff
-#         }
-
-#     context = "\n".join(d.page_content for d in docs)
-
-#     answer = llm_answer(context, question)
-
-#     # If LLM returned no content, fall back to the no-answer response and enable handoff if configured
-#     if not answer:
-#         return {
-#             "answer": no_answer_response(settings),
-#             "handoff": settings.enable_agent_handoff
-#         }
-
-#     return {
-#         "answer": answer,
-#         "handoff": False
-#     }
 def answer_question(question: str, client_id: str):
     db = next(get_db())
 
     client = get_client(db, client_id)
+
     if not client:
         raise HTTPException(status_code=404, detail="Client not found")
+
 
     llm = get_llm()
 
@@ -49,6 +25,11 @@ def answer_question(question: str, client_id: str):
         question=question,
         client_id=client_id
     )
+    
+    if not context or context.strip() == "":
+        settings = get_client_settings(client_id)
+        return {"answer": no_answer_response(settings)}
+
 
     prompt = build_prompt(
         system_prompt=client.system_prompt,
