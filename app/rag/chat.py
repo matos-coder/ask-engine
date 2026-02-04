@@ -42,15 +42,19 @@ def answer_question(question: str, client_id: str):
 
     if client.memory_enabled:
         summary_prompt = f"""
-Summarize the conversation briefly for future context.
+You are maintaining a running memory of the conversation.
+Keep it short but meaningful.
 
-Previous summary:
+Previous memory summary (may be empty):
 {client.conversation_summary}
 
-New exchange:
+New exchange to merge into the summary:
 User: {question}
 Assistant: {response.content}
+
+Return ONLY the updated summary. Do not add explanation.
 """
+
         summary = llm.invoke(summary_prompt).content
         update_conversation_summary(db, client, summary)
 
